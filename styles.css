@@ -1,0 +1,16 @@
+.my-button{
+	width: 80%;
+}
+
+.navbar-brand{
+	font-size: 50%;
+	color: white;
+}
+
+.btn{
+	background-color: white!important;
+}
+
+#blogposts{
+	margin: auto;
+}
