@@ -6,6 +6,10 @@
     header("Location: search.php?search=$search");
   }
 
+    if(!isset($_SESSION)){
+  session_start();
+  }
+
 ?> 
 
 <!DOCTYPE html>
@@ -29,6 +33,11 @@
         <li class="nav-item">
           <a class="nav-link active" href="create.php">Create Post</a>
         </li>
+        <?php if(isset($_SESSION['usertype']) && $_SESSION['usertype'] == 2): ?>
+        <li class="nav-item">
+          <a class="nav-link active" href="users.php">Users</a>
+        </li>
+         <?php endif ?>
         <li class="nav-item">
           <a class="nav-link active" href="logout.php">Logout</a>
         </li>
