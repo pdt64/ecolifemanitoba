@@ -78,7 +78,7 @@
           <h2><a href="show.php?id=<?= $post['postId'] ?>"><?= $post['title'] ?></a></h2>
           <p>
             <small>
-              <?= date('F j, Y,  g:i a ', strtotime($post['postDate'])) ?>
+              <?= date('F j, Y,  g:i a ', strtotime($post['postDate'])) ?> - Updated <?= date('F j, Y,  g:i a ', strtotime($post['dateUpdated'])) ?>
              <?php if(isset($_SESSION['userId'])): ?>
               <small> - </small><a href="edit.php?id=<?= $post['postId'] ?>">edit</a>
           	<?php endif ?>
@@ -91,6 +91,7 @@
               <?= $post['content'] ?>
             <?php endif ?>
           </div>
+          <a href="#">Comments</a>
         </div>
       <?php endforeach ?>
 	</div>

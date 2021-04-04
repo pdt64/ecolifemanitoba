@@ -10,7 +10,7 @@
   	$content = filter_input(INPUT_POST, 'content', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
   	$id      = filter_input(INPUT_GET, 'id', FILTER_SANITIZE_NUMBER_INT);
 
-  	$update_query     = "UPDATE blogposts SET title = :title, content = :content WHERE postid = :id";
+  	$update_query     = "UPDATE blogposts SET title = :title, content = :content, dateUpdated = CURRENT_TIMESTAMP WHERE postid = :id";
   	$delete_query = "DELETE FROM blogposts WHERE postid = :id"; 	
   	$select_query = "SELECT * FROM blogposts WHERE postid = :id";
 

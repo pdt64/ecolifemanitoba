@@ -33,14 +33,17 @@
         <li class="nav-item">
           <a class="nav-link active" href="create.php">Create Post</a>
         </li>
+        <li class="nav-item">
+          <a class="nav-link active" href="logout.php">Logout</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link active" href="pages.php">Page List</a>
+        </li>
         <?php if(isset($_SESSION['usertype']) && $_SESSION['usertype'] == 2): ?>
         <li class="nav-item">
           <a class="nav-link active" href="users.php">Users</a>
         </li>
          <?php endif ?>
-        <li class="nav-item">
-          <a class="nav-link active" href="logout.php">Logout</a>
-        </li>
       <?php endif ?>
       <?php if(!isset($_SESSION['userId'])): ?>
       <li class="nav-item">
