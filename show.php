@@ -87,6 +87,9 @@
 	<div id="blogposts">
     <div class="blog_post">
       <h2><?= $post[0]['title'] ?></h2>
+      <?php if($post[0]['image'] != null): ?>
+              <img src="uploads\<?= $post[0]['image'] ?>" alt="Picture"/>
+      <?php endif ?>
       <p>
         <small>
           <?= date('F j, Y,  g:i a', strtotime($post[0]['postDate'])) ?>

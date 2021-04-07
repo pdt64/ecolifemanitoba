@@ -15,6 +15,8 @@
 	session_start();
   }
 
+
+
 ?>
 
 <!doctype html>
@@ -86,7 +88,9 @@
           </p>
           <p>
             <?php if($post['image'] != null): ?>
-              <img src="uploads\<?= $post['image'] ?>" alt="Picture"/>
+              <?php $file_components = explode('.', $post['image']) ?>
+              <?php $medium = $file_components[0] . "_medium." . $file_components[1] ?>
+              <img src="<?= $medium ?>" alt="Picture"/>
             <?php endif ?>
           </p>
           <div class='blog_content'>
@@ -96,7 +100,6 @@
               <?= $post['content'] ?>
             <?php endif ?>
           </div>
-          <a href="#">Comments</a>
         </div>
       <?php endforeach ?>
 	</div>

@@ -35,10 +35,10 @@
 
   $title  = filter_input(INPUT_POST, 'title', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
   $content = filter_input(INPUT_POST, 'content', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+  $userId = $_SESSION['userId'];
 
-
-  $image_query     = "INSERT INTO blogposts (title, content, image) values (:title, :content, :image)";
-  $query = "INSERT INTO blogposts (title, content) values (:title, :content)";
+  $image_query     = "INSERT INTO blogposts (title, content, image, userId) values (:title, :content, :image, :userId)";
+  $query = "INSERT INTO blogposts (title, content, userId) values (:title, :content, :userId)";
   
   if(isset($_POST['title']) && strlen($_POST['title']) >= 1 && 
       isset($_POST['content']) && strlen($_POST['content']) >= 1 && isset($_FILES['image'])){
@@ -64,7 +64,7 @@
                       ->resizeToWidth(400)
                       ->save($file_components[0] . "_medium." . $file_components[1])
 
-                      ->resizeToWidth(50)
+                      ->resizeToWidth(200)
                       ->save($file_components[0] . "_thumbnail." . $file_components[1])
                   ;
             $image = $_FILES['image']['name'];
@@ -74,18 +74,20 @@
             $statement->bindValue(':image', $image);
             $statement->bindValue(':title', $title);
             $statement->bindValue(':content', $content);
+            $statement->bindValue(':userId', $userId);
 
             $statement->execute();
             $insert_id = $db->lastInsertId(); 
-          } else {
+          } 
+    } else {
             $statement = $db->prepare($query);
 
             $statement->bindValue(':title', $title);
             $statement->bindValue(':content', $content);
+            $statement->bindValue(':userId', $userId);
 
             $statement->execute();
             $insert_id = $db->lastInsertId(); 
-    }
     
   }
     header('Location: index.php');

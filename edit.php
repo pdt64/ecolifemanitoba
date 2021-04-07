@@ -70,7 +70,7 @@
                       ->resizeToWidth(400)
                       ->save($file_components[0] . "_medium." . $file_components[1])
 
-                      ->resizeToWidth(50)
+                      ->resizeToWidth(200)
                       ->save($file_components[0] . "_thumbnail." . $file_components[1])
                   ;
             $image = $_FILES['image']['name'];
@@ -86,7 +86,8 @@
 
             header('Location: index.php');
             exit();
-          } else {
+          } 
+    } else {
             $statement = $db->prepare($update_query);
 
             $statement->bindValue(':title', $title);
@@ -97,7 +98,6 @@
 
             header('Location: index.php');
             exit();
-    }
     
   }
 }
@@ -170,6 +170,9 @@
 	      </p>
         <?php if($post[0]['image'] != null): ?>
           <p>Existing image:</p>
+          <?php $file_components = explode('.', $post[0]['image']) ?>
+          <?php $thumbnail = $file_components[0] . "_thumbnail." . $file_components[1] ?>
+          <img src="<?= $thumbnail ?>" alt="Picture"/>
           <p><?= $post[0]['image'] ?></p>
           <input type="submit" name="deleteImage" value="Delete Image" />
         <?php else: ?>
