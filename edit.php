@@ -24,7 +24,7 @@
         return $file_extension_is_valid && $mime_type_is_valid;
     }
 
-    function file_upload_path($original_filename, $upload_subfolder_name = 'uploads') {
+    function file_upload_path($original_filename, $upload_subfolder_name) {
        $current_folder = dirname(__FILE__);
        $path_segments = [$current_folder, $upload_subfolder_name, basename($original_filename)];
        return join(DIRECTORY_SEPARATOR, $path_segments);
@@ -54,7 +54,7 @@
     if ($image_upload_detected) {
         $image_filename       = $_FILES['image']['name'];
         $temporary_image_path = $_FILES['image']['tmp_name'];
-        $new_image_path       = file_upload_path($image_filename);
+        $new_image_path       = file_upload_path($image_filename, 'uploads');
 
           if(file_is_valid($temporary_image_path, $new_image_path)) {
 
@@ -117,6 +117,26 @@
 	  		exit();
 	  	}
 
+      if(isset($_POST['deleteImage'])){
+
+        $file_components = explode('.', $post[0]['image']);
+        $thumbnail = $file_components[0] . "_thumbnail." . $file_components[1];
+        $medium = $file_components[0] . "_medium." . $file_components[1];
+
+        unlink(file_upload_path($post[0]['image'], 'uploads'));
+        unlink(file_upload_path($thumbnail, ''));
+        unlink(file_upload_path($medium, ''));
+        $delete_image_query = "UPDATE blogposts SET image = null WHERE postId = :id";
+        $delete_statement = $db->prepare($delete_image_query);
+
+        $delete_statement->bindValue(':id', $id, PDO::PARAM_INT);
+
+            $delete_statement->execute();
+
+            header('Location: index.php');
+            exit();
+      }
+
   }
 
 
@@ -151,6 +171,7 @@
         <?php if($post[0]['image'] != null): ?>
           <p>Existing image:</p>
           <p><?= $post[0]['image'] ?></p>
+          <input type="submit" name="deleteImage" value="Delete Image" />
         <?php else: ?>
           <label for="image">Image Filename:</label>
           <input type="file" name="image" id="image"/>

@@ -84,6 +84,11 @@
           	<?php endif ?>
             </small>
           </p>
+          <p>
+            <?php if($post['image'] != null): ?>
+              <img src="uploads\<?= $post['image'] ?>" alt="Picture"/>
+            <?php endif ?>
+          </p>
           <div class='blog_content'>
             <?php if(strlen($post['content']) > 200): ?>
               <p><?= substr($post['content'], 0, 200) ?> ... <a href="show.php?id=<?= $post['postId'] ?>">Read Full Post</a></p>
