@@ -6,7 +6,6 @@
 
   
 
-  require 'connection.php';
   require 'header.php';
 
   $title  = filter_input(INPUT_POST, 'title', FILTER_SANITIZE_FULL_SPECIAL_CHARS);

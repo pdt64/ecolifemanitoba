@@ -4,7 +4,6 @@
   // Date: 
   // Purpose: Allows users to register for an account on the website.
 
-  require 'connection.php';
   require 'header.php';
 
   $email  = filter_input(INPUT_POST, 'email', FILTER_SANITIZE_FULL_SPECIAL_CHARS);

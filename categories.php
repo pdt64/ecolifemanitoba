@@ -2,8 +2,6 @@
   // Name: Piolo Turdanes
   // Date: 
   // Purpose: Displays the index page and 15 most recent blog posts.
-
-  require 'connection.php';
   require 'header.php';
 
   	$query = "SELECT * FROM categories ORDER BY categoryId";

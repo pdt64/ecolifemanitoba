@@ -1,9 +1,19 @@
 <?php 
 
+  require 'connection.php';
+
   $search  = filter_input(INPUT_POST, 'search', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+  $category = filter_input(INPUT_POST, 'categories', FILTER_SANITIZE_NUMBER_INT);
+
+  $category_query = "SELECT * FROM categories";
+
+  $category_statement = $db->prepare($category_query);
+  $category_statement->execute();
+  $categories = $category_statement->fetchAll();
 
   if(isset($_POST['search'])){
-    header("Location: search.php?search=$search");
+    header("Location: search.php?search=$search&category=$category");
+    exit();
   }
 
     if(!isset($_SESSION)){
@@ -60,6 +70,12 @@
       <form class="d-flex" method="post">
         <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" name="search">
         <button class="btn btn-outline-success" type="submit">Search</button>
+        <select name="categories">
+            <option value="0" selected>All Categories</option>
+            <?php foreach($categories as $category): ?>
+              <option value="<?= $category['categoryId'] ?>"><?= $category['title'] ?></option>
+            <?php endforeach ?>
+          </select>
       </form>
     </div>
   </div>

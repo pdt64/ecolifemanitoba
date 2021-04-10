@@ -3,7 +3,7 @@
   // Date:
   // Purpose: Allows users to edit blog posts and update the posts in the database.
 
-   	require 'connection.php';
+
     require 'header.php';
 
     include '\xampp\htdocs\TermProject\uploads\php-image-resize-master\lib\ImageResize.php';

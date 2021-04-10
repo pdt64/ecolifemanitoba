@@ -5,8 +5,6 @@
   // Purpose: Allows users to create posts and insert them into the database.
 
 
-
-  require 'connection.php';
   require 'header.php';
 
   $username  = filter_input(INPUT_POST, 'username', FILTER_SANITIZE_FULL_SPECIAL_CHARS);

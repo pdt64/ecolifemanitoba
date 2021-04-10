@@ -3,7 +3,6 @@
   // Date:
   // Purpose: Allows users to edit blog posts and update the posts in the database.
 
-   	require 'connection.php';
     require 'header.php';
 
 	$username  = filter_input(INPUT_POST, 'username', FILTER_SANITIZE_FULL_SPECIAL_CHARS);

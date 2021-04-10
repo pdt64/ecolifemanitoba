@@ -1,20 +1,37 @@
 <?php
 
 	require 'header.php';
-	require 'connection.php';
 	require 'categoryNav.php';
 
 	$search = filter_input(INPUT_GET, 'search', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+	$category = filter_input(INPUT_GET, 'category', FILTER_SANITIZE_NUMBER_INT);
 
 	$query = "SELECT * 
 				FROM blogposts
 				WHERE title 
 				LIKE CONCAT('%', :title, '%') OR 
 				content LIKE CONCAT('%', :title, '%')";
-  	$statement = $db->prepare($query); 
-  	$statement->bindValue(':title', $search);
-  	$statement->execute(); 
-  	$posts = $statement->fetchAll();
+
+	$restricted_query = "SELECT * 
+						FROM blogposts
+						WHERE (title 
+						LIKE CONCAT('%', :title, '%') OR 
+						content LIKE CONCAT('%', :title, '%')) AND
+						categoryId = :category";
+
+	if($category == 0){
+		$statement = $db->prepare($query); 
+  		$statement->bindValue(':title', $search);
+  		$statement->execute(); 
+  		$posts = $statement->fetchAll();
+	} else{
+		$statement = $db->prepare($restricted_query); 
+  		$statement->bindValue(':title', $search);
+  		$statement->bindValue(':category', $category);
+  		$statement->execute(); 
+  		$posts = $statement->fetchAll();
+	}
+  	
 
   if(!isset($_SESSION)){
 	session_start();
@@ -74,6 +91,7 @@
          <?php foreach($posts as $post): ?>
         <div class="blog_post">
           <h2><a href="show.php?id=<?= $post['postId'] ?>"><?= $post['title'] ?></a></h2>
+          <h4><?= $post['categoryId'] ?></h4>
           <p>
             <small>
               <?= date('F j, Y,  g:i a ', strtotime($post['postDate'])) ?>

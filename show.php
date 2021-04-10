@@ -3,7 +3,6 @@
   // Date: 
   // Purpose: Displays the selected page.
 
-  require 'connection.php';
   require 'header.php';
 
    $id      = filter_input(INPUT_GET, 'id', FILTER_SANITIZE_NUMBER_INT);

@@ -6,7 +6,6 @@
 
   
 
-  require 'connection.php';
   require 'header.php';
 
   include '\xampp\htdocs\TermProject\uploads\php-image-resize-master\lib\ImageResize.php';

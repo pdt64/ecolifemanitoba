@@ -3,8 +3,6 @@
   // Name: Piolo Turdanes
   // Date: 
   // Purpose: Allows users to login.
-
-  require 'connection.php';
   require 'header.php';
 
   $email  = filter_input(INPUT_POST, 'email', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
