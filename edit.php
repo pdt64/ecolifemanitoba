@@ -33,6 +33,7 @@
 	  $title  = filter_input(INPUT_POST, 'title', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
   	$content = filter_input(INPUT_POST, 'content', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
   	$id      = filter_input(INPUT_GET, 'id', FILTER_SANITIZE_NUMBER_INT);
+    $category = filter_input(INPUT_POST, 'categories', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
 
     $image_query     = "UPDATE blogposts SET title = :title, content = :content, dateUpdated = CURRENT_TIMESTAMP, 
                         image = :image, categoryId = :category WHERE postid = :id";
@@ -53,8 +54,7 @@
 
     if(filter_var($id, FILTER_VALIDATE_INT)){
     if(isset($_POST['title']) && strlen($_POST['title']) >= 1 && 
-      isset($_POST['content']) && strlen($_POST['content']) >= 1 && isset($_FILES['image']) 
-      && isset($_POST['update'])){
+      isset($_POST['content']) && strlen($_POST['content']) >= 1 && isset($_POST['update'])){
 
     $image_upload_detected = isset($_FILES['image']) && ($_FILES['image']['error'] === 0);
 
@@ -88,18 +88,21 @@
             $statement->bindValue(':title', $title);
             $statement->bindValue(':content', $content);
             $statement->bindValue(':id', $id, PDO::PARAM_INT);
+            $statement->bindValue(':category', $category);
 
             $statement->execute();
 
             header('Location: index.php');
             exit();
           } 
+        
     } else {
             $statement = $db->prepare($update_query);
 
             $statement->bindValue(':title', $title);
             $statement->bindValue(':content', $content);
             $statement->bindValue(':id', $id, PDO::PARAM_INT);
+            $statement->bindValue(':category', $category);
 
             $statement->execute();
 

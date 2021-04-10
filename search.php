@@ -2,6 +2,7 @@
 
 	require 'header.php';
 	require 'connection.php';
+	require 'categoryNav.php';
 
 	$search = filter_input(INPUT_GET, 'search', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
 
