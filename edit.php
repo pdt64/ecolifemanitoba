@@ -34,10 +34,17 @@
   	$content = filter_input(INPUT_POST, 'content', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
   	$id      = filter_input(INPUT_GET, 'id', FILTER_SANITIZE_NUMBER_INT);
 
-    $image_query     = "UPDATE blogposts SET title = :title, content = :content, dateUpdated = CURRENT_TIMESTAMP, image = :image WHERE postid = :id";
-  	$update_query     = "UPDATE blogposts SET title = :title, content = :content, dateUpdated = CURRENT_TIMESTAMP WHERE postid = :id";
+    $image_query     = "UPDATE blogposts SET title = :title, content = :content, dateUpdated = CURRENT_TIMESTAMP, 
+                        image = :image, categoryId = :category WHERE postid = :id";
+  	$update_query     = "UPDATE blogposts SET title = :title, content = :content, dateUpdated = CURRENT_TIMESTAMP,
+                        categoryId = :category WHERE postid = :id";
   	$delete_query = "DELETE FROM blogposts WHERE postid = :id"; 	
   	$select_query = "SELECT * FROM blogposts WHERE postid = :id";
+    $category_query = "SELECT * FROM categories";
+
+    $category_statement = $db->prepare($category_query);
+    $category_statement->execute();
+    $categories = $category_statement->fetchAll();
 
     $select_statement = $db->prepare($select_query);
     $select_statement->bindValue(':id', $id, PDO::PARAM_INT);
@@ -168,6 +175,14 @@
 	        <label for="content">Content</label>
 	        <textarea name="content" id="content" cols="100" rows="20"><?= $post[0]['content'] ?></textarea>
 	      </p>
+        <label>Select a category: (optional)</label>
+          <select name="categories">
+            <option value="" selected>No Category</option>
+            <?php foreach($categories as $category): ?>
+              <option value="<?= $category['categoryId'] ?>"><?= $category['title'] ?></option>
+            <?php endforeach ?>
+          </select>
+          <br>
         <?php if($post[0]['image'] != null): ?>
           <p>Existing image:</p>
           <?php $file_components = explode('.', $post[0]['image']) ?>

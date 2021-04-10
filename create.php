@@ -36,9 +36,16 @@
   $title  = filter_input(INPUT_POST, 'title', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
   $content = filter_input(INPUT_POST, 'content', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
   $userId = $_SESSION['userId'];
+  $category = filter_input(INPUT_POST, 'categories', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
 
-  $image_query     = "INSERT INTO blogposts (title, content, image, userId) values (:title, :content, :image, :userId)";
-  $query = "INSERT INTO blogposts (title, content, userId) values (:title, :content, :userId)";
+  $image_query     = "INSERT INTO blogposts (title, content, image, userId, categoryId) values 
+                      (:title, :content, :image, :userId, :category)";
+  $query = "INSERT INTO blogposts (title, content, userId, categoryId) values (:title, :content, :userId, :category)";
+  $category_query = "SELECT * FROM categories";
+
+  $category_statement = $db->prepare($category_query);
+  $category_statement->execute();
+  $categories = $category_statement->fetchAll();
   
   if(isset($_POST['title']) && strlen($_POST['title']) >= 1 && 
       isset($_POST['content']) && strlen($_POST['content']) >= 1 && isset($_FILES['image'])){
@@ -75,6 +82,7 @@
             $statement->bindValue(':title', $title);
             $statement->bindValue(':content', $content);
             $statement->bindValue(':userId', $userId);
+            $statement->bindValue(':category', $category);
 
             $statement->execute();
             $insert_id = $db->lastInsertId(); 
@@ -85,6 +93,7 @@
             $statement->bindValue(':title', $title);
             $statement->bindValue(':content', $content);
             $statement->bindValue(':userId', $userId);
+            $statement->bindValue(':category', $category);
 
             $statement->execute();
             $insert_id = $db->lastInsertId(); 
@@ -122,8 +131,17 @@
             <label for="content">Content</label>
             <textarea name="content" id="content" cols="100" rows="20"></textarea>
           </p>
+          <label>Select a category: (optional)</label>
+          <select name="categories">
+            <option value="" selected>No Category</option>
+            <?php foreach($categories as $category): ?>
+              <option value="<?= $category['categoryId'] ?>"><?= $category['title'] ?></option>
+            <?php endforeach ?>
+          </select>
+          <br>
           <label for="image">Image Filename:</label>
           <input type="file" name="image" id="image"/>
+          <br>
             <input type="submit" name="submit" value="Create"  />
           <?php if(isset($_POST['title']) && strlen($_POST['title']) < 1 && 
           isset($_POST['content']) && strlen($_POST['content']) < 1): ?>
