@@ -121,8 +121,8 @@
 
 	    if(isset($_POST['delete'])){
 	    	$delete_statement = $db->prepare($delete_query);
-			$delete_statement->bindValue(':id', $id, PDO::PARAM_INT);
-	  	    $delete_statement->execute();
+			   $delete_statement->bindValue(':id', $id, PDO::PARAM_INT);
+	  	  $delete_statement->execute();
 	  		header('Location: index.php');
 	  		exit();
 	  	}
