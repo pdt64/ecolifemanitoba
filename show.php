@@ -6,15 +6,44 @@
   require 'header.php';
 
    $id      = filter_input(INPUT_GET, 'id', FILTER_SANITIZE_NUMBER_INT);
+   $userId = $_SESSION['userId'];
+   $userPostId = filter_input(INPUT_POST, 'id', FILTER_SANITIZE_NUMBER_INT);
+   $content = filter_input(INPUT_POST, 'content', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
 
   	$query = "SELECT * FROM blogposts WHERE postId = :id";
+    $comment_query = "SELECT * FROM comments WHERE postId = :id ORDER BY dateCreated";
+    $insert = "INSERT INTO comments (postId, userId, content) values (:postId, :userId, :content)";
+    $username_query = "SELECT * FROM users";
   	if(filter_var($id, FILTER_VALIDATE_INT)){
       $select_statement = $db->prepare($query); 
       $select_statement->bindValue(':id', $id, PDO::PARAM_INT);
       $select_statement->execute(); 
       $post = $select_statement->fetchAll();
+
+      $name_statement = $db->prepare($username_query); 
+      $name_statement->execute(); 
+      $name = $name_statement->fetchAll();
+
+      $comment_statement = $db->prepare($comment_query); 
+      $comment_statement->bindValue(':id', $id, PDO::PARAM_INT);
+      $comment_statement->execute(); 
+      $comments = $comment_statement->fetchAll();
     } else {
       header('Location: index.php');
+      exit();
+    }
+
+    if(isset($_POST['content']) && strlen($_POST['content']) >= 1 && isset($_POST['submit'])){
+      $statement = $db->prepare($insert);
+
+      $statement->bindValue(':content', $content);
+      $statement->bindValue(':userId', $userPostId);
+      $statement->bindValue(':postId', $id);
+
+      $statement->execute();
+      $insert_id = $db->lastInsertId();
+
+      header("Location: show.php?id=$id");
       exit();
     }
 
@@ -100,6 +129,26 @@
       <div class='blog_content'>
         <p><?= $post[0]['content'] ?></p>
       </div>
+      <h2>Comments:</h2>
+      <?php foreach ($comments as $comment): ?>
+        <div class="container-fluid">
+          <p><?= $comment['content'] ?></p>
+          <small><?= date('F j, Y,  g:i a ', strtotime($comment['dateCreated'])) ?> - <?= $name[0]['username'] ?></small>
+          <br/>
+          <br>
+        </div>
+      <?php endforeach ?>
+      <?php if(isset($_SESSION['userId'])): ?>
+      <h2>Add a comment:</h2>
+      <form method="post">
+        <input type="hidden" name="id" value="<?= $comments[0]['userId'] ?>" />
+        <textarea name="content" id="content" cols="50" rows="10"></textarea>
+        <input type="submit" name="submit" value="Comment"  />
+          <?php if(isset($_POST['content']) && strlen($_POST['content']) < 1): ?>
+            <p>Comment may not be less than 1 character.</p>
+          <?php endif ?>
+      </form>
+    <?php endif ?>
 	</div>
 
     <!-- Optional JavaScript; choose one of the two! -->
