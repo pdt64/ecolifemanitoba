@@ -8,7 +8,6 @@
   	$id      = filter_input(INPUT_GET, 'id', FILTER_SANITIZE_NUMBER_INT);
 
   	$update_query = "UPDATE categories SET title = :title WHERE categoryId = :id";
-	$delete_query = "DELETE FROM categories WHERE categoryId = :id"; 	
   	$select_query = "SELECT * FROM categories WHERE categoryId = :id";
 
   	$select_statement = $db->prepare($select_query);
@@ -30,14 +29,6 @@
 		 	header('Location: categories.php');
 		    exit();
   		}
-
-  		if(isset($_POST['delete'])){
-	    	$delete_statement = $db->prepare($delete_query);
-			$delete_statement->bindValue(':id', $id, PDO::PARAM_INT);
-	  	    $delete_statement->execute();
-	  		header('Location: categories.php');
-	  		exit();
-	  	}
 
   	} else {
 		header('Location: index.php');
@@ -70,10 +61,9 @@
 	      <p>
 	        <input type="hidden" name="id" value="<?= $category[0]['categoryId'] ?>" />
 	        <input type="submit" name="update" value="Update" />
-	        <input type="submit" name="delete" value="Delete" onclick="return confirm('Are you sure you wish to delete this post?')" />
 	      </p>
 	      <?php if(isset($_POST['title']) && strlen($_POST['title']) < 1): ?>
-	        <p>Titlemay not be less than 1 character.</p>
+	        <p>Title may not be less than 1 character.</p>
 	      <?php endif ?>
 	    </fieldset>
 	  </form>

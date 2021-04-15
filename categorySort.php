@@ -69,6 +69,7 @@
          <?php foreach($posts as $post): ?>
         <div class="blog_post">
           <h2><a href="show.php?id=<?= $post['postId'] ?>"><?= $post['title'] ?></a></h2>
+          <h4><?= $post['categoryId'] ?></h4>
           <p>
             <small>
               <?= date('F j, Y,  g:i a ', strtotime($post['postDate'])) ?>
