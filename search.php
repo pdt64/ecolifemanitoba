@@ -91,7 +91,6 @@
          <?php foreach($posts as $post): ?>
         <div class="blog_post">
           <h2><a href="show.php?id=<?= $post['postId'] ?>"><?= $post['title'] ?></a></h2>
-          <h4><?= $post['categoryId'] ?></h4>
           <p>
             <small>
               <?= date('F j, Y,  g:i a ', strtotime($post['postDate'])) ?>
@@ -111,6 +110,7 @@
       <?php endforeach ?>
 	</div>
 </body>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js" integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0" crossorigin="anonymous"></script>
 </html>
 
 

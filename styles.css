@@ -8,9 +8,26 @@
 }
 
 .btn{
-	background-color: white!important;
+	background-color: black !important;
+
 }
 
-#blogposts{
-	margin: auto;
+div#blogposts{
+	width: 70%;
+	margin: auto auto !important;
 }
+
+h2 {
+	background-color: #475957;
+}
+
+	h2 a{
+		font-size: 3rem;
+		text-decoration: none;
+		color: white;
+	}
+
+	h2 a:hover{
+		color: black;
+		transition: 1s;
+	}
