@@ -53,6 +53,7 @@
     <title>ELM - Create</title>
      <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous"/>
      <script src="register.js"></script>
+     <link rel="stylesheet" type="text/css" href="styles.css">
 </head>
 <body>
   <div id="wrapper">

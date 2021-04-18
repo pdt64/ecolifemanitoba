@@ -2,11 +2,6 @@
 	width: 80%;
 }
 
-.navbar-brand{
-	font-size: 50%;
-	color: white;
-}
-
 .btn{
 	background-color: black !important;
 
@@ -17,8 +12,9 @@ div#blogposts{
 	margin: auto auto !important;
 }
 
-h2 {
-	background-color: #475957;
+h2{
+	background-color: #475957!important;
+	color: white !important;
 }
 
 	h2 a{

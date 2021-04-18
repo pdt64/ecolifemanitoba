@@ -19,8 +19,6 @@
     $count = $statement->rowCount();
     $user = $statement->fetchAll();
 
-    echo $user[0]['password'];
-
     if($count == 1 && password_verify($password, $user[0]['password'])){
       $_SESSION['userId'] = $user[0]['userId'];
       $_SESSION['username'] = $user[0]['username'];
@@ -44,6 +42,7 @@
     <title>ELM - Login</title>
      <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous"/>
      <script src="login.js"></script>
+     <link rel="stylesheet" type="text/css" href="styles.css">
 </head>
 <body>
   <div id="wrapper">
