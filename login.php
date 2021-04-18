@@ -10,27 +10,29 @@
 
   if(isset($_POST['email']) && 
       isset($_POST['pass'])){
-    $query     = "SELECT * FROM users WHERE email = :email AND password = :password";
+    $query     = "SELECT * FROM users WHERE email = :email";
 
     $statement = $db->prepare($query);
     $statement->bindValue(':email', $email);
-    $statement->bindValue(':password', $password);
 
     $statement->execute();
     $count = $statement->rowCount();
     $user = $statement->fetchAll();
 
-    if($count == 1){
-      if(session_status() == PHP_SESSION_NONE){
-        session_start();
-      }
+    echo $user[0]['password'];
+
+    if($count == 1 && password_verify($password, $user[0]['password'])){
       $_SESSION['userId'] = $user[0]['userId'];
       $_SESSION['username'] = $user[0]['username'];
       $_SESSION['usertype'] = $user[0]['usertype'];
       header('Location: index.php');
       exit;
     }
+
+    if(!isset($_SESSION)){
+    session_start();
   } 
+} 
 ?>
 
 

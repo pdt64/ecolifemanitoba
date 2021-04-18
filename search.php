@@ -6,6 +6,8 @@
 	$search = filter_input(INPUT_GET, 'search', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
 	$category = filter_input(INPUT_GET, 'category', FILTER_SANITIZE_NUMBER_INT);
 
+	$paginate = 7;
+
 	$query = "SELECT * 
 				FROM blogposts
 				WHERE title 
@@ -23,12 +25,14 @@
 		$statement = $db->prepare($query); 
   		$statement->bindValue(':title', $search);
   		$statement->execute(); 
+  		$count = $statement->rowCount();
   		$posts = $statement->fetchAll();
 	} else{
 		$statement = $db->prepare($restricted_query); 
   		$statement->bindValue(':title', $search);
   		$statement->bindValue(':category', $category);
   		$statement->execute(); 
+  		$count = $statement->rowCount();
   		$posts = $statement->fetchAll();
 	}
   	
@@ -88,7 +92,7 @@
   </button>
 </div>
 	<div id="blogposts">
-         <?php foreach($posts as $post): ?>
+		<?php foreach($posts as $post): ?>
         <div class="blog_post">
           <h2><a href="show.php?id=<?= $post['postId'] ?>"><?= $post['title'] ?></a></h2>
           <p>
@@ -99,6 +103,12 @@
           	<?php endif ?>
             </small>
           </p>
+          <p>
+            <?php if($post['image'] != null): ?>
+              <?php $file_components = explode('.', $post['image']) ?>
+              <?php $medium = $file_components[0] . "_medium." . $file_components[1] ?>
+              <img src="<?= $medium ?>" alt="Picture"/>
+            <?php endif ?>
           <div class='blog_content'>
             <?php if(strlen($post['content']) > 200): ?>
               <p><?= substr($post['content'], 0, 200) ?> ... <a href="show.php?id=<?= $post['postId'] ?>">Read Full Post</a></p>

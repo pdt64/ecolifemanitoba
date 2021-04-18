@@ -14,11 +14,6 @@
   $query     = "INSERT INTO users (email, username, password, usertype) values (:email, :name, :pass, 1)";
   $select = "SELECT * FROM users WHERE email = :email";
 
-  $statement = $db->prepare($query);
-  $statement->bindValue(':email', $email);
-  $statement->bindValue(':name', $username);
-  $statement->bindValue(':pass', $password);
-
   $select_statement = $db->prepare($select);
   $select_statement->bindValue("email", $email);
   $select_statement->execute(); 
@@ -28,6 +23,14 @@
   	if(isset($_POST['email']) && 
       isset($_POST['name']) && 
   	  isset($_POST['pass'])){
+
+      $hashed_pass = password_hash($password, PASSWORD_DEFAULT);
+
+      $statement = $db->prepare($query);
+      $statement->bindValue(':email', $email);
+      $statement->bindValue(':name', $username);
+      $statement->bindValue(':pass', $hashed_pass);
+
     	$statement->execute();
     	$insert_id = $db->lastInsertId();
 
