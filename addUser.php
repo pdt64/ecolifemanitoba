@@ -38,47 +38,33 @@
   
 ?>
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="utf-8">
-    <title>ELM - Add User</title>
-     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous"/>
-     <link rel="stylesheet" type="text/css" href="styles.css">
-      <script src="addUser.js"></script>
-</head>
-<body>
 <?php if(isset($_SESSION['userId'])): ?>
   <div id="wrapper">
     <div id="all_blogs">
       <form method="post">
         <fieldset>
           <legend>New User</legend>
-          <p>
+        
             <label for="username">Username</label>
             <input name="username" id="username" />
             <p id="name_error" class = "error">Username is required.</p>
-          </p>
-          <p>
+            <br/>
             <label for="email">Email</label>
             <input name="email" id="email" />
             <p id="email_error" class = "error">Email is required.</p>
             <p id="invalid_error" class = "error">Invalid email.</p>
-          </p>
-          <p>
+            <br/>
             <label for="pass">Password</label>
             <input name="pass" id="pass" />
             <p id="pass_error" class = "error">Password is required.</p>
-          </p>
-          <p>
+            <br/>
             <label for="usertype">User type (1 for member, 2 for admin)</label>
             <input name="usertype" id="usertype" />
             <p id="usertype_error" class = "error">Usertype is required.</p>
             <p id="invalidtype_error" class = "error">Only 1 and 2 are allowed for usertypes.</p>
-          </p>
-          <p>
+            <br/>
             <input type="submit" name="command" value="Add" id="add"  />
-          </p>
+
         </fieldset>
       </form>
     </div>
@@ -86,5 +72,7 @@
 <?php else: ?>
   <p>You do not have access to this page.</p>
 <?php endif ?>
+<script src="addUser.js"></script>
 </body>
+
 </html>

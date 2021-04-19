@@ -34,36 +34,21 @@
 ?>
 
 
-
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="utf-8">
-    <title>ELM - Login</title>
-     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous"/>
-     <script src="login.js"></script>
-     <link rel="stylesheet" type="text/css" href="styles.css">
-</head>
-<body>
   <div id="wrapper">
 
     <div id="all_blogs">
       <form method="post">
         <fieldset>
           <legend>Login</legend>
-          <p>
             <label for="email">Email</label>
             <input name="email" id="email" />
             <p id="email_error" class="error">Please enter your email.</p>
-          </p>
-          <p>
+            <br>
             <label for="pass">Password</label>
             <input name="pass" id="pass" type="password" />
             <p id="pass_error" class="error">Please enter your password.</p>
-          </p>
-          <p>
+            <br>
             <input type="submit" name="command" value="Login" id="login" />
-          </p>
           <?php if(isset($count) && $count != 1): ?>
             <p>Login failed.</p>
           <?php endif ?>
@@ -71,5 +56,7 @@
       </form>
     </div>
   </div> 
+  <script src="login.js"></script>
 </body>
+
 </html>

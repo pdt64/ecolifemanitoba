@@ -12,12 +12,6 @@
 ?>
 
 
-<!DOCTYPE html>
-<html>
-<head>
-  <title></title>
-</head>
-<body>
   <ul class="nav">
   <?php foreach($categories as $category): ?>
   <li class="nav-item">
@@ -25,6 +19,4 @@
   </li>
 <?php endforeach ?>
 </ul>
-</body>
-</html>
 

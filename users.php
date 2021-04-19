@@ -20,12 +20,6 @@
 
 ?>
 
-<!DOCTYPE html>
-<html>
-<head>
-  <title>Users</title>
-</head>
-<body>
   <?php if(isset($_SESSION['userId'])): ?>
   <div id="users">
     <form method="post"> 

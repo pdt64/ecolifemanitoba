@@ -19,12 +19,6 @@
 
 ?>
 
-<!DOCTYPE html>
-<html>
-<head>
-  <title>Categories</title>
-</head>
-<body>
   <?php if(isset($_SESSION['userId'])): ?>
   <div id="categories">
     <form method="post"> 

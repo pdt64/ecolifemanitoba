@@ -54,16 +54,6 @@
   }
 ?>
 
-
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="utf-8">
-    <title>ELM - Edit User</title>
-     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous"/>
-             <link rel="stylesheet" type="text/css" href="styles.css">
-</head>
-<body>
 <?php if(isset($_SESSION['userId'])): ?>
     <div id="wrapper">
 	<div id="all_blogs">
@@ -71,11 +61,11 @@
 	    <fieldset>
 	      <legend>Edit User</legend>
 	      <p>
-	        <label for="title">Username</label>
+	        <label for="username">Username</label>
 	        <input name="username" id="username" value="<?= $user[0]['username']?>" />
 	      </p>
 	      <p>
-	        <label for="content">Usertype</label>
+	        <label for="usertype">Usertype</label>
 	        <input name="usertype" id="usertype" value="<?= $user[0]['usertype'] ?>"/>
 	      </p>
 	      <p>

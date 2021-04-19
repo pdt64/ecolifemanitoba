@@ -44,49 +44,33 @@
   } 
 ?>
 
-
-
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="utf-8">
-    <title>ELM - Create</title>
-     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous"/>
-     <script src="register.js"></script>
-     <link rel="stylesheet" type="text/css" href="styles.css">
-</head>
-<body>
   <div id="wrapper">
 
     <div id="all_blogs">
       <form method="post">
         <fieldset>
           <legend>Register</legend>
-          <p>
+
             <label for="email">Email</label>
             <input name="email" id="email" />
             <p id="email_error" class = "error">Email is required.</p>
             <p id="invalid_error" class = "error">Invalid email.</p>
-          </p>
-          <p>
+            <br>
             <label for="name">Username</label>
             <input name="name" id="name" />
             <p id="name_error" class = "error">Username is required.</p>
-          </p>
-          <p>
+            <br>
             <label for="pass">Password</label>
             <input name="pass" id="pass" type="password" />
             <p id="pass_error" class = "error">Password is required.</p>
-          </p>
-          <p>
+            <br>
             <label for="pass_again">Enter Password Again</label>
             <input name="pass_again" id="pass_again" type="password" />
             <p id="pass_again_error" class = "error">Please re-enter your password.</p>
             <p id="match_error" class = "error">Passwords do not match.</p>
-          </p>
-          <p>
+            <br>
             <input type="submit" name="command" value="Register" id="register" />
-          </p>
+            <br>
           <?php if(isset($count) && $count == 1): ?>
             <p>Account already exists.</p>
           <?php endif ?>
@@ -95,5 +79,7 @@
       </form>
     </div>
   </div> 
+  <script src="register.js"></script>
+
 </body>
 </html>
